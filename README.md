@@ -1,4 +1,4 @@
-# Comandos Terminal (Generales y GIT)
+# Comandos Terminal (Generales de GIT)
 
 **Inicializar repositorios Git**
 ```bash
