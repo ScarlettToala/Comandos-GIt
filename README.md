@@ -35,9 +35,18 @@ git branch nombre
 ```bash
 git checkout nombre
 ```
+**Eliminar una rama**
+```bash
+git branch -d nombre
+```
 **Ver todas las ramas y que rama estas**
 ```bash
 git branch --all 
+```
+
+**Para unir todas las ramas**
+```bash
+git merge 
 ```
 
 **Subir un repositorio de local a remoto.**
@@ -45,7 +54,7 @@ git branch --all
 >[!NOTE]
 > Seguir las recomendaciones de git
 ```bash
-git remtote add origin url
+git remote add origin url
 git branch -M main
 git push -u origin main
 ```
@@ -111,10 +120,7 @@ Para conocer el contenido.
 ```bash
 cat arc.format
 ```
-Es para unir todas las ramas
-```bash
-git merge 
-```
+
 
 Comando para conocer el contenido del directorio.
 ```bash
