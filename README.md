@@ -19,7 +19,7 @@ git commit -m "Commit"
 **Ver el estado**
 ```bash
 git status
-git status –short
+git status –-short
 ```
 **Ver el historial**
 ```bash
