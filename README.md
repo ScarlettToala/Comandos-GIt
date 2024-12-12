@@ -118,6 +118,20 @@ alias gb='git branch'
 alias mk='mkdir'
 alias t='touch' 
 ```
+ Ver todos los alias
+ >alias
+
+**Colores en los Alias**
+```bash
+alias gs='echo -e "\e[32mGit Status:\e[0m" && git status -sb'                               # Estado en verde
+alias gl='echo -e "\e[34mGit Log:\e[0m" && git log --oneline --graph --decorate'           # Log en azul
+alias gd='echo -e "\e[31mGit Diff:\e[0m" && git diff --color-words'                        # Diferencias en rojo
+```
+**Colores en los listados**
+```bash
+alias ll='ls -lh --color=auto | sed "s/^/$(echo -e \\\e[36m)/;s/$/$(echo -e \\\e[0m)/"'  # Listado largo en cian
+alias la='ls -lha --color=auto | sed "s/^/$(echo -e \\\e[33m)/;s/$/$(echo -e \\\e[0m)/"' # Incluye archivos ocultos en amarillo
+```
 **Expresiones regulares básicas.**
 >Para seleccionar todos los archivos en con elcomando _*.temp_ -> todos los archvos acabados en ese final 
 
