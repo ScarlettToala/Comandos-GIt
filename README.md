@@ -43,10 +43,28 @@ git branch -d nombre
 ```bash
 git branch --all 
 ```
+**se utiliza cuando deseas ver las diferencias entre dos árboles**
+```bash
+git diff
+```
 
 **Para unir todas las ramas**
 ```bash
 git merge 
+```
+o lo comtrario revertirlo
+```bash
+git merge --abort
+```
+
+**Borrar un archivo de git**
+```bash
+git rm archivo.formato
+```
+
+**Cambiar el nombre**
+```bash
+git mv nombratiguo nombre nuevo
 ```
 
 **Subir un repositorio de local a remoto.**
