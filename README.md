@@ -1,165 +1,260 @@
-# Comandos Terminal (Generales de GIT)
+# Comandos de Terminal (Generales de Git)
 
-**Inicializar repositorios Git**
+## Índice
+
+1. [Configuración inicial](#1-configuración-inicial)
+2. [Repositorio local](#2-repositorio-local)
+   - [Inicializar un repositorio](#inicializar-un-repositorio)
+   - [Añadir archivos (staging)](#añadir-archivos-staging)
+   - [Quitar archivos del staging](#quitar-archivos-del-staging)
+   - [Hacer commits](#hacer-commits)
+   - [Ver el estado](#ver-el-estado)
+   - [Ver el historial](#ver-el-historial)
+   - [Ver diferencias](#ver-diferencias)
+   - [Eliminar un archivo](#eliminar-un-archivo)
+   - [Renombrar o mover un archivo](#renombrar-o-mover-un-archivo)
+3. [Ramas](#3-ramas)
+   - [Crear una rama](#crear-una-rama)
+   - [Moverse entre ramas](#moverse-entre-ramas)
+   - [Ver las ramas](#ver-las-ramas)
+   - [Eliminar una rama](#eliminar-una-rama)
+   - [Fusionar ramas](#fusionar-ramas)
+4. [Repositorio remoto (GitHub)](#4-repositorio-remoto-github)
+   - [Subir un repositorio local a remoto](#subir-un-repositorio-local-a-remoto)
+   - [Otros comandos habituales](#otros-comandos-habituales)
+5. [Desplegar en Vercel](#5-desplegar-en-vercel)
+6. [Sintaxis Markdown](#6-sintaxis-markdown)
+7. [Alias](#7-alias)
+   - [Alias básicos](#alias-básicos)
+   - [Alias propios de Git](#alias-propios-de-git)
+   - [Alias con colores](#alias-con-colores)
+   - [Colores en los listados](#colores-en-los-listados)
+8. [Comodines (wildcards)](#8-comodines-wildcards)
+9. [Comandos extra de terminal](#9-comandos-extra-de-terminal)
+   - [Editar un archivo](#editar-un-archivo)
+   - [Ver el contenido de un archivo](#ver-el-contenido-de-un-archivo)
+   - [Listar el contenido del directorio](#listar-el-contenido-del-directorio)
+   - [Crear el archivo .gitignore](#crear-el-archivo-gitignore)
+
+---
+
+## 1. Configuración inicial
+
+Configura tu identidad (solo se hace una vez por equipo):
+```bash
+git config --global user.name "usuario"
+git config --global user.email "correo@ejemplo.com"
+git config --list
+```
+
+## 2. Repositorio local
+
+### Inicializar un repositorio
 ```bash
 git init
 ```
-**Añadir archivos**
+
+### Añadir archivos (staging)
 ```bash
-git add
+git add archivo.txt   # un archivo concreto
+git add .             # todos los cambios
 ```
-**Eliminar archivo del git add**
+
+### Quitar archivos del staging
+Sin perder los cambios:
 ```bash
-git reset 
+git reset archivo.txt
+# alternativa moderna:
+git restore --staged archivo.txt
 ```
-**Hacer commits**
+
+### Hacer commits
 ```bash
-git commit -m "Commit"
+git commit -m "Mensaje descriptivo"
 ```
-**Ver el estado**
+
+### Ver el estado
 ```bash
 git status
-git status –-short
+git status --short
 ```
-**Ver el historial**
+
+### Ver el historial
 ```bash
 git log
 git log --oneline --decorate --all --graph
 ```
 
-**Crear ramas** 
+### Ver diferencias
+Muestra los cambios entre el directorio de trabajo y el staging (o entre commits/ramas).
+```bash
+git diff                 # cambios sin añadir
+git diff --staged        # cambios ya añadidos con git add
+git diff rama1 rama2     # entre dos ramas
+```
+
+### Eliminar un archivo
+```bash
+git rm archivo.txt
+```
+
+### Renombrar o mover un archivo
+```bash
+git mv nombre_antiguo nombre_nuevo
+```
+
+## 3. Ramas
+
+### Crear una rama
 ```bash
 git branch nombre
 ```
-**Moverse entre ramas**
+
+### Moverse entre ramas
 ```bash
 git checkout nombre
-```
-**Eliminar una rama**
-```bash
-git branch -d nombre
-```
-**Ver todas las ramas y que rama estas**
-```bash
-git branch --all 
-```
-**se utiliza cuando deseas ver las diferencias entre dos árboles**
-```bash
-git diff
+git switch nombre          # alternativa moderna
+git checkout -b nombre     # crear y moverse a la vez
 ```
 
-**Para unir todas las ramas**
+### Ver las ramas
+La rama actual aparece marcada con `*`.
 ```bash
-git merge 
+git branch --all
 ```
-o lo comtrario revertirlo
+
+### Eliminar una rama
+```bash
+git branch -d nombre    # solo si ya está fusionada
+git branch -D nombre    # forzar el borrado
+```
+
+### Fusionar ramas
+Primero muévete a la rama que va a *recibir* los cambios (por ejemplo `main`):
+```bash
+git checkout main
+git merge nombre
+```
+Si hay conflictos y quieres cancelar la fusión:
 ```bash
 git merge --abort
 ```
 
-**Borrar un archivo de git**
-```bash
-git rm archivo.formato
-```
+## 4. Repositorio remoto (GitHub)
 
-**Cambiar el nombre**
-```bash
-git mv nombratiguo nombre nuevo
-```
+### Subir un repositorio local a remoto
 
-**Subir un repositorio de local a remoto.**
+> [!NOTE]
+> Sigue las recomendaciones que te muestra GitHub al crear el repositorio.
 
->[!NOTE]
-> Seguir las recomendaciones de git
 ```bash
 git remote add origin url
 git branch -M main
 git push -u origin main
 ```
 
-**Desplegar en Vercel y que se visualice correctamente.**
+### Otros comandos habituales
+```bash
+git clone url      # descargar un repositorio
+git pull           # traer cambios del remoto
+git push           # subir commits
+```
 
- Vercel [Link](https://vercel.com/)
-1. La página web debe funcionar localmente.
-2. El repositorio debe estar en Git Hub.
-3. Eligir el repositorio.
+## 5. Desplegar en Vercel
 
->[!WARNING]
-> Recordar que a veces esta dividido en subcarpetas y hay que elegir una para que se muestre.
-> Simpre será uno de tus mismos repositorios no colaboradores
+[Vercel](https://vercel.com/)
 
-**Saber aplicar nomenclatura Markdown.**
+1. La página web debe funcionar en local.
+2. El repositorio debe estar en GitHub.
+3. Elegir el repositorio desde Vercel.
 
-|          NOMBRE          |               Formación               |
-|:------------------------:|:-------------------------------------:|
-|          Titulo          |                   #                   |
-|          Notas           |                [!NOTE]                |
-|         Warning          |              [!WARNING]               |
-|     Destaque codigo      |             `codigo`(``)              |
-|          email           | <<nombreArroba_>> <ejemplo@gmail.com> |
-| contenido en bloque copy |          ```bash git ash```           |
-|           Link           |     explicación[nombrelink](url)      |
+> [!WARNING]
+> A veces el proyecto está dividido en subcarpetas: hay que elegir la carpeta correcta (*Root Directory*) para que se visualice bien.
+> Siempre debe ser uno de tus propios repositorios, no uno en el que seas colaborador.
 
+## 6. Sintaxis Markdown
 
+| Elemento | Sintaxis |
+|:--|:--|
+| Título | `# Título` (más `#` = subtítulo) |
+| Nota | `> [!NOTE]` |
+| Advertencia | `> [!WARNING]` |
+| Código en línea | `` `código` `` |
+| Bloque de código | ```` ```bash ```` … ```` ``` ```` |
+| Email | `<ejemplo@gmail.com>` |
+| Enlace | `[texto del enlace](url)` |
 
+## 7. Alias
 
+Un alias es un atajo para un comando largo. Se guardan en `~/.bashrc` (o `~/.zshrc`) y se cargan con `source ~/.bashrc`.
 
-**Saber reconocer un alias**
-
+### Alias básicos
 ```bash
 alias ga='git add'
-alias gh='git log'
+alias gc='git commit -m'
 alias gs='git status'
 alias gss='git status --short'
-alias git l ='git log --oneline --decorate --all --graph'
-alias gc='git commit -m'
-alias git che='git checkout'
+alias gl='git log --oneline --decorate --all --graph'
+alias gco='git checkout'
 alias gb='git branch'
 alias mk='mkdir'
-alias t='touch' 
-```
- Ver todos los alias
- >alias
-
-**Colores en los Alias**
-```bash
-alias gs='echo -e "\e[32mGit Status:\e[0m" && git status -sb'                               # Estado en verde
-alias gl='echo -e "\e[34mGit Log:\e[0m" && git log --oneline --graph --decorate'           # Log en azul
-alias gd='echo -e "\e[31mGit Diff:\e[0m" && git diff --color-words'                        # Diferencias en rojo
-```
-**Colores en los listados**
-```bash
-alias ll='ls -lh --color=auto | sed "s/^/$(echo -e \\\e[36m)/;s/$/$(echo -e \\\e[0m)/"'  # Listado largo en cian
-alias la='ls -lha --color=auto | sed "s/^/$(echo -e \\\e[33m)/;s/$/$(echo -e \\\e[0m)/"' # Incluye archivos ocultos en amarillo
-```
-**Expresiones regulares básicas.**
->Para seleccionar todos los archivos en con elcomando _*.temp_ -> todos los archvos acabados en ese final 
-
-### Comandos extras
-Comandos para iniciar sesión en git desde el local terminal. 
-```bash
-git config --global user.name "usuario"
-git config --global user.email "correo@id.com"
-git config --list
+alias t='touch'
 ```
 
-Comando que modifica el contendio.
+Ver todos los alias definidos:
 ```bash
-nano arhivo.formato
+alias
 ```
 
-Para conocer el contenido.
+> [!NOTE]
+> El nombre de un alias no puede llevar espacios (`alias git l=...` no funciona).
+> Evita `gh`, porque choca con GitHub CLI.
+
+### Alias propios de Git
 ```bash
-cat arc.format
+git config --global alias.l "log --oneline --decorate --all --graph"
+# se usa así: git l
 ```
 
-
-Comando para conocer el contenido del directorio.
+### Alias con colores
 ```bash
-ls 
+alias gs='echo -e "\e[32mGit Status:\e[0m" && git status -sb'                     # verde
+alias gl='echo -e "\e[34mGit Log:\e[0m" && git log --oneline --graph --decorate'  # azul
+alias gd='echo -e "\e[31mGit Diff:\e[0m" && git diff --color-words'               # rojo
 ```
 
-Para crear el archivo de git ignore
+### Colores en los listados
 ```bash
-touch ~/.gitignore 
+alias ll='ls -lh --color=auto'     # listado largo
+alias la='ls -lha --color=auto'    # incluye archivos ocultos
+```
+
+## 8. Comodines (wildcards)
+
+Sirven para seleccionar varios archivos a la vez:
+```bash
+git add *.temp     # todos los archivos que acaban en .temp
+```
+
+## 9. Comandos extra de terminal
+
+### Editar un archivo
+```bash
+nano archivo.txt
+```
+
+### Ver el contenido de un archivo
+```bash
+cat archivo.txt
+```
+
+### Listar el contenido del directorio
+```bash
+ls
+```
+
+### Crear el archivo .gitignore
+Debe ir en la raíz del repositorio, para ignorar archivos:
+```bash
+touch .gitignore
 ```
